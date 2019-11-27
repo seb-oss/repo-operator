@@ -8,15 +8,20 @@ metadata:
   creationTimestamp: null
   name: repositories.repository.storage.sebshift.io
 spec:
+  additionalPrinterColumns:
+  - JSONPath: .spec.repotype
+    name: Repotype
+    type: string
   group: repository.storage.sebshift.io
   names:
     kind: Repository
     listKind: RepositoryList
     plural: repositories
-    singular: repository
     shortNames:
     - repo
-  scope: ""
+    singular: repository
+  scope: Namespaced
+  subresources: {}
   validation:
     openAPIV3Schema:
       description: Repository is the Schema for the repositories API
