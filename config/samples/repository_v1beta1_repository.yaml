@@ -1,0 +1,9 @@
+apiVersion: repository.storage.sebshift.io/v1beta1
+kind: Repository
+metadata:
+  name: repo-test
+spec:
+  repotype: 'maven/docker/nuget/npm'
+  users:
+    - "user1"
+    - "user2"

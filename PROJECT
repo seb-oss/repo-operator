@@ -1,0 +1,7 @@
+version: "2"
+domain: storage.sebshift.io
+repo: github.com/sebgroup/repo-operator
+resources:
+- group: repository
+  version: v1beta1
+  kind: Repository

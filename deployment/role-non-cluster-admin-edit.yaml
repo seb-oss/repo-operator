@@ -1,0 +1,12 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: aggregate-repo-admin-edit
+  labels:
+    rbac.authorization.k8s.io/aggregate-to-admin: "true"
+    rbac.authorization.k8s.io/aggregate-to-edit: "true"
+rules:
+  - apiGroups:
+      - repository.storage.sebshift.io
+    resources: ["repositories"]
+    verbs: ["get", "list", "watch", "create", "update", "patch", "delete", "deletecollection"]
