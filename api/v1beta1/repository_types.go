@@ -42,7 +42,8 @@ type RepositoryStatus struct {
 }
 
 // +kubebuilder:object:root=true
-
+// +kubebuilder:resource:shortName=repo
+// +kubebuilder:printcolumn:name="Repotype",type=string,JSONPath=`.spec.repotype`
 // Repository is the Schema for the repositories API
 type Repository struct {
 	metav1.TypeMeta   `json:",inline"`
