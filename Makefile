@@ -11,6 +11,16 @@ else
 GOBIN=$(shell go env GOBIN)
 endif
 
+ifeq (,$(shell which podman))
+  CONTAINER_TOOL=$(shell which docker)
+else 
+  CONTAINER_TOOL=$(shell which podman)
+endif
+
+ifeq (,$(CONTAINER_TOOL))
+  $(error Missing podman or docker in PATH)
+endif
+
 all: manager
 
 # Run tests
@@ -51,12 +61,12 @@ generate: controller-gen
 	$(CONTROLLER_GEN) object:headerFile=./hack/boilerplate.go.txt paths="./..."
 
 # Build the docker image
-docker-build: test
-	docker build . -t ${IMG}
+container-build: test
+	${CONTAINER_TOOL} build . -t ${IMG}
 
 # Push the docker image
-docker-push:
-	docker push ${IMG}
+container-push:
+	${CONTAINER_TOOL} push ${IMG}
 
 # find or download controller-gen
 # download controller-gen if necessary
