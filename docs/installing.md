@@ -20,7 +20,7 @@ kubectl apply -f config/crd/bases/repository.storage.sebshift.io_repositories.ya
   
 3. _**Build Docker image**_
 ```
-make docker-build
+make container-build
 ``` 
 > ¤ Set **GOPROXY** variable in the dockerfile if you are running behind firewall.   
   ¤ Set proxy in docker for windows if running behind firewall.   
