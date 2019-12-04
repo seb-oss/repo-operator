@@ -5,8 +5,6 @@ ARTIFACTORY_URL ?= https://your-artifactory-server-url/artifactory
 ARTIFACTORY_USER ?= user
 ARTIFACTORY_PASSWORD ?= password
 
-B64USER=$(shell echo $(ARTIFACTORY_USER) | base64)
-B64PWD=$(shell echo $(ARTIFACTORY_PASSWORD) | base64)
 # Produce CRDs that work back to Kubernetes 1.11 (no version conversion)
 CRD_OPTIONS ?= "crd:trivialVersions=true"
 
