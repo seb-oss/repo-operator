@@ -1,10 +1,9 @@
 # Build the manager binary
 FROM golang:1.13 as builder
 
-# Set Proxy below if needed
+# Set Proxy below if needed and optionally disabled checksum checking
 #ENV GOPROXY=<Your Proxy Url>
-
-ENV GOSUMDB=off
+#ENV GOSUMDB=off
 
 WORKDIR /workspace
 # Copy the Go Modules manifests
