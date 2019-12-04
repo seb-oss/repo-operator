@@ -1,6 +1,12 @@
 
 # Image URL to use all building/pushing image targets
 IMG ?= repo-operator:latest
+ARTIFACTORY_URL ?= https://your-artifactory-server-url/artifactory
+ARTIFACTORY_USER ?= user
+ARTIFACTORY_PASSWORD ?= password
+
+B64USER=$(shell echo $(ARTIFACTORY_USER) | base64)
+B64PWD=$(shell echo $(ARTIFACTORY_PASSWORD) | base64)
 # Produce CRDs that work back to Kubernetes 1.11 (no version conversion)
 CRD_OPTIONS ?= "crd:trivialVersions=true"
 
@@ -39,14 +45,18 @@ run: generate fmt vet manifests
 install: manifests
 	kustomize build config/crd | kubectl apply -f -
 
-# Deploy controller in the configured Kubernetes cluster in ~/.kube/config
+# Deploy repo-operator in the configured Kubernetes cluster in ~/.kube/config
 deploy: manifests
-	cd config/manager && kustomize edit set image controller=${IMG}
+	cd config/operator && kustomize edit set image controller=${IMG} \
+	&& kustomize edit add secret repo-secret --from-literal=password=$(ARTIFACTORY_PASSWORD) \
+	--from-literal=username=$(ARTIFACTORY_USER) --from-literal=url=$(ARTIFACTORY_URL)
 	kustomize build config/default | kubectl apply -f -
+	# Don't leave secret literal values on file
+	cd config/operator && rm kustomization.yaml && cp .ktemplate kustomization.yaml
 
 # Generate manifests e.g. CRD, RBAC etc.
 manifests: controller-gen
-	$(CONTROLLER_GEN) $(CRD_OPTIONS) rbac:roleName=manager-role webhook paths="./..." output:crd:artifacts:config=config/crd/bases
+	$(CONTROLLER_GEN) $(CRD_OPTIONS) rbac:roleName=repo-operator webhook paths="./..." output:crd:artifacts:config=config/crd/bases
 
 # Run go fmt against code
 fmt:
@@ -61,11 +71,11 @@ generate: controller-gen
 	$(CONTROLLER_GEN) object:headerFile=./hack/boilerplate.go.txt paths="./..."
 
 # Build the docker image
-container-build: test
+image-build: test
 	${CONTAINER_TOOL} build . -t ${IMG}
 
 # Push the docker image
-container-push:
+image-push:
 	${CONTAINER_TOOL} push ${IMG}
 
 # find or download controller-gen

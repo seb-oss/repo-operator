@@ -2,7 +2,6 @@
 
 Before you can create repository resources, you need to [install repo-operator](installing.md)
 
-* Login to your kubernetes cluster and select your desired namespace.
 * Edit [repository_v1beta1_repository.yaml](../config/samples/repository_v1beta1_repository.yaml) and change fields to your required values:
 ```
 apiVersion: repository.storage.sebshift.io/v1beta1

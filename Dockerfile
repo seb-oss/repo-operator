@@ -2,7 +2,7 @@
 FROM golang:1.13 as builder
 
 # Set Proxy below if needed
-#ENV GOPROXY=<Your Proxy Url>
+ENV GOPROXY=https://repo.sebank.se/artifactory/api/go/gocenter
 
 ENV GOSUMDB=off
 

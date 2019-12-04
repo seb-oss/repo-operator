@@ -39,27 +39,6 @@ The Operator acts on the _**Repository**_  [custom resource definitions (CRDs)](
 ### Getting started
 :point_right: [Get started with repo-operator](docs/installing.md)
 
-## Development
-
-:white_check_mark: Pre-Requisite
-* [go](https://golang.org/dl/) version v1.12+.
-* [docker](https://docs.docker.com/install/) version 17.03+.
-* [kubectl](https://kubernetes.io/docs/tasks/tools/install-kubectl/) version v1.11.3+.
-* [kustomize](https://sigs.k8s.io/kustomize/docs/INSTALL.md) v3.1.0+.
-* [Access to a Kubernetes](https://kubernetes.io/docs/concepts/configuration/organize-cluster-access-kubeconfig/) v1.11.3+ cluster.
-* [Kubebuilder](https://book.kubebuilder.io/quick-start.html) (Required only if you want to make changes to the CRD structure)
-* Install Make
-```
-sudo apt-get install build-essential
-```
-
-* Launch :rocket:
-```
-make install
-
-make run
-``` 
-
 ## Contributing
 
 Please read more about ["How to contribute"](CONTRIBUTING.md)
